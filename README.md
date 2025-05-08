@@ -1,14 +1,12 @@
-InkVision
-
 InkVision is an iOS Augmented Reality (AR) application that enables users to scan images of famous landmarks using their iPhone camera. Upon recognizing a landmark, the app overlays a live video related to that landmark in real-time. The project uses CoreML for image recognition, ARKit for AR rendering, and AVKit for video playback, built with Xcode.
 
 Features
 
-Landmark Recognition: Identifies landmarks using a custom-trained CoreML model (Landmark_Classifier).
+1. Landmark Recognition: Identifies landmarks using a custom-trained CoreML model (Landmark_Classifier).
 
-Real-Time Video Overlay: Plays landmark-specific videos as AR overlays using AVKit.
+2. Real-Time Video Overlay: Plays landmark-specific videos as AR overlays using AVKit.
 
-Supported Landmarks:
+3. Supported Landmarks:
   Taj Mahal
   Colosseum
   Eiffel Tower
@@ -16,7 +14,7 @@ Supported Landmarks:
   Golden Gate Bridge
   Leaning Tower of Pisa
   
-Continuous Scanning: Classifies camera frames every 2 seconds for seamless recognition.
+4. Continuous Scanning: Classifies camera frames every 2 seconds for seamless recognition.
 
 Requirements
 
@@ -82,13 +80,14 @@ SceneKit: For managing the AR scene.
 Contributing
 We welcome contributions! To contribute:
 
-Fork the repository.
-Create a feature branch (git checkout -b feature-branch).
-Commit changes (git commit -m 'Add feature').
-Push to the branch (git push origin feature-branch).
-Open a Pull Request.
+1. Fork the repository.
+2. Create a feature branch (git checkout -b feature-branch).
+3. Commit changes (git commit -m 'Add feature').
+4. Push to the branch (git push origin feature-branch).
+5. Open a Pull Request.
 
 License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 Limitations
