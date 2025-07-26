@@ -58,8 +58,8 @@ The application currently recognizes these famous landmarks:
 
 ## 📱 System Requirements
 
-- **iOS 11.0+** (ARKit requirement)
-- **Device with A9 processor or newer** (ARKit compatibility)
+- **iOS 17.6+** (ARKit requirement)
+- **Device with A14 processor or newer** (ARKit compatibility)
 - **Camera access permissions**
 - **Internet connection** (for streaming video content)
 
