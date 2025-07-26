@@ -1,105 +1,122 @@
-InkVision is an iOS Augmented Reality (AR) application that enables users to scan images of famous landmarks using their iPhone camera. Upon recognizing a landmark, the app overlays a live video related to that landmark in real-time. The project uses CoreML for image recognition, ARKit for AR rendering, and AVKit for video playback, built with Xcode.
+# AR Landmark Recognition with Video Overlay
 
-Features
+An iOS application that uses ARKit and Core ML to recognize famous landmarks in real-time and overlay contextual videos when landmarks are detected through the device camera.
 
-1. Landmark Recognition: Identifies landmarks using a custom-trained CoreML model (Landmark_Classifier).
+## 🎯 Project Overview
 
-2. Real-Time Video Overlay: Plays landmark-specific videos as AR overlays using AVKit.
+This application combines computer vision, augmented reality, and machine learning to create an interactive landmark discovery experience. When users point their device camera at famous landmarks, the app automatically recognizes them and displays relevant video content as an overlay.
 
-3. Supported Landmarks:
-  Taj Mahal
-  Colosseum
-  Eiffel Tower
-  Statue of Liberty
-  Golden Gate Bridge
-  Leaning Tower of Pisa
-  
-4. Continuous Scanning: Classifies camera frames every 2 seconds for seamless recognition.
+## ✨ Key Features
 
-Requirements
+### 🔍 Real-time Landmark Recognition
+- **Smart Detection System**: Uses a custom Core ML model (`Landmark_Classifier`) for accurate landmark identification
+- **Consecutive Validation**: Requires 3 consecutive detections to minimize false positives
+- **Dynamic Confidence Thresholds**: Adaptive confidence levels (85% for new detections, 75% during video playback)
+- **Ambiguity Prevention**: Validates confidence gaps between top predictions to avoid uncertain results
 
-iOS 16.0 or later
-Xcode 14.0 or later
-iPhone with ARKit support (iPhone 8 or newer recommended)
-Custom-trained CoreML model (Landmark_Classifier.mlmodel)
+### 🎥 Intelligent Video Playback
+- **Seamless Overlay**: Videos play as full-screen overlays using `AVPlayerLayer`
+- **Smart State Management**: Prevents unnecessary video restarts for the same landmark
+- **Auto-switching**: Intelligently switches videos when different landmarks are detected
+- **Graceful Stopping**: Stops video after 2 consecutive non-detections to prevent interruptions
 
-Installation
+### 🚀 Performance Optimizations
+- **Concurrent Processing Protection**: Prevents frame processing conflicts with threading guards
+- **Optimized Classification Timing**: 0.8-second intervals for responsive detection
+- **Memory Management**: Proper cleanup of video players, timers, and notification observers
+- **AR Session Management**: Efficient ARKit configuration with horizontal plane detection
 
-Clone the Repository:git clone https://github.com/rishikanthkc/InkVision.git
+## 🏛️ Supported Landmarks
 
+The application currently recognizes these famous landmarks:
+- **Taj Mahal** 🇮🇳
+- **Colosseum** 🇮🇹  
+- **Eiffel Tower** 🇫🇷
+- **Statue of Liberty** 🇺🇸
+- **Golden Gate Bridge** 🇺🇸
+- **Leaning Tower of Pisa** 🇮🇹
 
-Open in Xcode:
-Open InkVision.xcodeproj in Xcode.
+## 🛠️ Technical Architecture
 
-
-Add CoreML Model:
-Place your custom-trained .mlmodel file in the project’s root directory.
-Add it to the Xcode Project Navigator and ensure it’s included in the target.
-
-
-Build and Run:
-Select an ARKit-compatible iPhone or simulator.
-Build and run (Cmd + R).
-
-
-
-Usage
-
-1. Launch InkVision on your iPhone.
-2. Point the camera at a supported landmark image.
-3. When a landmark is recognized (with >90% confidence), a corresponding video overlay plays automatically.
-4. Move the camera to explore the AR experience; videos stop when no landmark is detected.
-
-Project Structure
-
-ViewController.swift: Core logic for AR session management, CoreML image classification, and video playback.
-Assets.xcassets: App icons and visual assets.
-Landmark_Classifier.mlmodel (required): Custom CoreML model for landmark recognition (not included).
-
-Implementation Details
-
-CoreML: Uses VNCoreMLModel to classify camera snapshots every 2 seconds via VNClassificationObservation.
-ARKit: Configures ARWorldTrackingConfiguration with horizontal plane detection for stable AR rendering.
-AVKit: Streams videos from Pixabay URLs or local files, displayed via AVPlayerLayer with .resizeAspectFill.
-Logic Flow:
-  Captures scene snapshots using sceneView.snapshot().
-  Classifies images with a confidence threshold of 0.9.
-  Plays videos only for new landmarks, pausing/removing when landmarks change or are not detected.
-  Resets AR session on load and pauses on viewWillDisappear.
+### Core Technologies
+- **ARKit**: Real-time camera feed and AR session management
+- **Core ML**: Machine learning model inference for landmark classification
+- **Vision Framework**: Image processing and ML request handling
+- **AVKit**: Video playback and overlay management
+- **SceneKit**: 3D scene rendering (future expansion capability)
 
 
+### Detection Pipeline
+1. **Frame Capture**: ARSCNView captures camera frames at 0.8s intervals
+2. **ML Processing**: Core ML model processes frames for landmark classification
+3. **Validation**: Multiple validation layers ensure accuracy:
+   - Confidence threshold validation
+   - Consecutive detection confirmation
+   - Known landmark verification
+   - Ambiguity resolution
+4. **Video Trigger**: Qualified detections trigger appropriate video overlays
 
-Dependencies
+## 📱 System Requirements
 
-CoreML: For landmark classification.
-ARKit: For AR session and rendering.
-AVKit: For video playback.
-Vision: For integrating CoreML with image processing.
-SceneKit: For managing the AR scene.
+- **iOS 11.0+** (ARKit requirement)
+- **Device with A9 processor or newer** (ARKit compatibility)
+- **Camera access permissions**
+- **Internet connection** (for streaming video content)
 
-Contributing
-We welcome contributions! To contribute:
+## 🔧 Installation & Setup
 
-1. Fork the repository.
-2. Create a feature branch (git checkout -b feature-branch).
-3. Commit changes (git commit -m 'Add feature').
-4. Push to the branch (git push origin feature-branch).
-5. Open a Pull Request.
+1. **Clone the repository**
 
-License
+2. **Open in Xcode**
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+3. **Add the ML Model**
+- Place your `Landmark_Classifier.mlmodel` file in the project
+- Ensure it's added to the target
 
-Limitations
+4. **Configure Permissions**
+- Camera usage permission is required in `Info.plist`
 
-Requires a stable internet connection for streaming video URLs.
-Local video playback requires correct file paths in the bundle (not implemented in this version).
-Performance depends on device hardware and lighting conditions.
+5. **Build and Run**
+- Select a physical iOS device (ARKit requires physical device)
+- Build and run the project
 
-Acknowledgments
+## 🎮 How to Use
 
-Built with CoreML, ARKit, and AVKit.
-Video content sourced from Pixabay.
+1. **Launch the App**: Open the application on your iOS device
+2. **Point Camera**: Aim your device camera at a supported landmark
+3. **Wait for Recognition**: The app will analyze the scene automatically
+4. **Enjoy Video**: Once detected, a contextual video will overlay your view
+5. **Explore More**: Move to different landmarks for new content
 
-Contact
-For issues or suggestions, please open a GitHub Issue.
+## 🔮 Future Enhancements
+
+- **Expanded Landmark Database**: Add more landmarks and cultural sites
+- **3D AR Models**: Integrate 3D models alongside video content
+- **Audio Narration**: Add voice-over descriptions for landmarks
+- **Offline Mode**: Support for offline landmark recognition
+- **User-Generated Content**: Allow users to add custom landmarks and videos
+- **Social Features**: Share discoveries with friends
+- **Travel Integration**: Connect with travel planning apps
+
+## 🤝 Contributing
+
+We welcome contributions! Areas where you can help:
+- Adding new landmark recognition models
+- Improving detection accuracy
+- Adding new video content
+- UI/UX enhancements
+- Performance optimizations
+- Documentation improvements
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- Video content sourced from Pixabay
+- ARKit and Core ML frameworks by Apple
+- Open source community for inspiration and resources
+
+**Note**: This application is designed for educational and demonstration purposes. Ensure you have proper permissions for any video content used in production applications.
+
